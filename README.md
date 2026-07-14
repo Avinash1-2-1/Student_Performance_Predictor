@@ -123,16 +123,5 @@ columns: `study_hours_per_week`, `attendance_percent`, `previous_score`,
 to derive it automatically (`final_score >= 40`), or you can supply your own
 pass/fail threshold.
 
-## Notes for presentation
 
-- This is a **supervised learning** project using two classic algorithms:
-  Linear Regression (continuous prediction) and Logistic Regression
-  (binary classification) — good, explainable choices for an academic
-  demo since coefficients directly show how much each factor matters.
-- Features are standardized (`StandardScaler`) before training so that
-  each feature contributes fairly regardless of its original scale (e.g.
-  attendance is 0-100 while study hours is 0-40).
-- The feature coefficients printed during training show that **study
-  hours has the strongest influence** on final score in this dataset,
-  followed by previous score, then attendance — a good talking point for
-  a teacher presentation.
+
