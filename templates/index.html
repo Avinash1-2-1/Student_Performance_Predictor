@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Performance Predictor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="board">
+  <div class="chalk-dust" aria-hidden="true"></div>
+
+  <header class="board-header">
+    <p class="eyebrow">Room 204 &middot; Predictive Analytics</p>
+    <h1 class="chalk-title">Student Performance<br>Predictor</h1>
+    <p class="subtitle">Three numbers in, one honest estimate out &mdash; before the real exam does the talking.</p>
+  </header>
+
+  <main class="desk">
+
+    <!-- INPUT CARD -->
+    <section class="card index-card" aria-labelledby="form-heading">
+      <div class="tape tape-left" aria-hidden="true"></div>
+      <div class="tape tape-right" aria-hidden="true"></div>
+      <h2 id="form-heading" class="card-heading">Enter the numbers</h2>
+
+      <form id="predict-form">
+        <div class="field">
+          <div class="field-label-row">
+            <label for="study_hours">Study hours / week</label>
+            <output class="field-value" id="study_hours_out" for="study_hours">15</output>
+          </div>
+          <input type="range" id="study_hours" name="study_hours" min="0" max="40" step="0.5" value="15">
+          <div class="field-scale"><span>0</span><span>40</span></div>
+        </div>
+
+        <div class="field">
+          <div class="field-label-row">
+            <label for="attendance">Attendance</label>
+            <output class="field-value" id="attendance_out" for="attendance">80%</output>
+          </div>
+          <input type="range" id="attendance" name="attendance" min="40" max="100" step="1" value="80">
+          <div class="field-scale"><span>40%</span><span>100%</span></div>
+        </div>
+
+        <div class="field">
+          <div class="field-label-row">
+            <label for="previous_score">Previous exam score</label>
+            <output class="field-value" id="previous_score_out" for="previous_score">65</output>
+          </div>
+          <input type="range" id="previous_score" name="previous_score" min="0" max="100" step="1" value="65">
+          <div class="field-scale"><span>0</span><span>100</span></div>
+        </div>
+
+        <button type="submit" class="chalk-button">
+          <span>Predict outcome</span>
+        </button>
+      </form>
+    </section>
+
+    <!-- REPORT CARD / RESULT -->
+    <section class="card report-card" id="report-card" aria-live="polite">
+
+      <div class="report-empty" id="report-empty">
+        <svg class="empty-sketch" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="10" width="100" height="100" rx="4" stroke="currentColor" stroke-width="2" stroke-dasharray="6 6"/>
+          <path d="M30 45h60M30 60h60M30 75h40" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="4 6"/>
+        </svg>
+        <p>Your report card will appear here.</p>
+      </div>
+
+      <div class="report-filled" id="report-filled" hidden>
+        <p class="report-eyebrow">Predicted outcome</p>
+
+        <div class="grade-zone">
+          <svg class="grade-circle" viewBox="0 0 200 200" aria-hidden="true">
+            <circle id="grade-ring" cx="100" cy="100" r="80" />
+          </svg>
+          <span class="grade-letter" id="grade-letter">A</span>
+        </div>
+
+        <p class="score-line"><span id="score-value">0</span><span class="score-max">/100</span></p>
+
+        <div class="prob-block">
+          <div class="prob-label-row">
+            <span id="prob-status">Likely to pass</span>
+            <span id="prob-percent" class="prob-percent-value">0%</span>
+          </div>
+          <div class="prob-bar-track">
+            <div class="prob-bar-fill" id="prob-bar-fill"></div>
+          </div>
+        </div>
+
+        <p class="remark" id="remark">&nbsp;</p>
+      </div>
+
+      <div class="report-error" id="report-error" hidden>
+        <p>Couldn't reach the model. Make sure <code>train.py</code> has been run and the server is up.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="board-footer">
+    <p>Model: Linear + Logistic Regression &middot; trained on synthetic classroom data</p>
+  </footer>
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
